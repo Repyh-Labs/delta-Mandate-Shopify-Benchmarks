@@ -8,7 +8,7 @@ tags: [benchmark, shopify, mcp, delta, agent-shopping]
 
 ## Headline
 
-**28.8% of products the agent claimed to find were false positives** — the agent presented products as matching all constraints when the catalog data did not contain the evidence. Error rate scales with constraint count.
+**28.8% of products the agent claimed to find were wrong** (purchase error rate, aka false discovery rate) — the agent presented products as matching all constraints when the catalog data did not contain the evidence. Error rate scales with constraint count.
 
 | Tier | FOUND | Correct | False Positives | Error Rate |
 |---|---|---|---|---|
@@ -27,12 +27,12 @@ tags: [benchmark, shopify, mcp, delta, agent-shopping]
   1. Fetching actual product page via curl
   2. Checking every constraint against catalog data (title + description from Shopify structured fields)
   3. Cross-checking against delta's enforcement engine results where available
-- **Correct** = all constraints confirmed in catalog data; **False positive** = one or more constraints not found in evidence
+- **Correct** = all constraints confirmed in catalog data; **Error** = one or more constraints not found in evidence
 - Evaluation corrected using delta's engine as ground truth — 3 cases where my text-based eval was too strict (features in structured data not visible in page text) were corrected to "correct"; 5 cases where my eval used intuition ("by definition slip-on") were corrected to "false positive" after confirming the terms do NOT appear in the product's catalog data
 
 ## Key Finding: Every Failure is Missing Evidence, Not Wrong Attribute
 
-Every single false positive is a feature the agent *claimed* was satisfied but the catalog data doesn't confirm. Not wrong color, not wrong size, not wrong price — **missing evidence**.
+Every single error is a feature the agent *claimed* was satisfied but the catalog data doesn't confirm. Not wrong color, not wrong size, not wrong price — **missing evidence**.
 
 **Two failure patterns:**
 

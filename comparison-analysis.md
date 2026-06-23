@@ -63,12 +63,12 @@ Both gaps follow the safe failure mode: the engine says "I can't verify this con
 | **False negative** | 11 | 0 |
 | **Total** | 100 | 100 |
 | | | |
-| **False positive rate** | **28.8%** | **0.0%** |
-| **False negative rate** | **32.4%** | **0.0%** |
+| **Purchase error rate** (FP / (FP+TP)) | **28.8%** (19/66) | **0.0%** (0/56) |
+| **False positive rate** (FP / (FP+TN)) | **45.2%** (19/42) | **0.0%** (0/44) |
 
 **Important caveat on false negatives:** The 11 Shopify false negatives are a **discovery** metric, not an enforcement metric. The agent didn't make a wrong verdict — it couldn't find a product. Delta's pipeline found one, but that's a discovery capability difference, not an enforcement error. Delta has a full discovery pipeline (catalog search + evidence extraction + verification); the Shopify agent only has catalog search. Comparing false negatives across the two systems conflates discovery with enforcement.
 
-The enforcement comparison — the number that matters for delegated spending — is the **false positive rate**:
+The enforcement comparison — the number that matters for delegated spending — is the **purchase error rate**:
 - Shopify: 19 false positives out of 66 claims → **28.8%**
 - Delta: 0 false positives out of 56 claims → **0.0%**
 
@@ -143,11 +143,11 @@ Breakdown of Delta's 23 fails:
 ## Context: Shopify Agent Accuracy (for comparison)
 
 On the same 100 intents, the Shopify MCP agent (without delta's enforcement):
-- Found 66 products, of which 28.8% were false positives (19/66)
+- Found 66 products, of which 28.8% were wrong (19/66)
 - Error rate by difficulty: Easy 22.2%, Medium 25.0%, Hard 71.4%
 - Every failure was a missing feature the agent claimed was satisfied but couldn't verify from catalog data — either the term wasn't present, or the agent used product-type intuition rather than extracting explicit evidence
 
-The agent's 28.8% false positive rate is exactly the gap delta's policy engine closes. And the engine closes it with 0% false positives and 0% false negatives.
+The agent's 28.8% purchase error rate is exactly the gap delta's policy engine closes. And the engine closes it with 0% false positives and 0% false negatives.
 
 ## Methodology Notes
 
