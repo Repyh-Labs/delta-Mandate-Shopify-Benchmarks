@@ -1,10 +1,10 @@
-# Agent Shopping Benchmark — Shopify MCP vs delta Mandate
+# Agent Shopping Benchmark — without vs with delta Mandate
 
 Benchmark comparing AI agent purchase accuracy on Shopify with and without delta Mandate's intent enforcement layer.
 
 ## Headline
 
-When given 100 purchase intents across the Shopify catalog, a Shopify MCP-equipped agent bought the wrong product **28.8% of the time** (71.4% on hard, multi-constraint intents). With delta Mandate's verification layer: **0%**.
+When given 100 purchase intents across the Shopify catalog, a Shopify UCP CLI-equipped agent bought the wrong product **28.8% of the time** (71.4% on hard, multi-constraint intents). With delta Mandate's verification layer: **0%**.
 
 ## Repository contents
 
