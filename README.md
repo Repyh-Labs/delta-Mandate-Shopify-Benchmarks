@@ -35,7 +35,7 @@ When given 100 purchase intents across the Shopify catalog, a Shopify UCP CLI-eq
 | **False negative** (passed when a valid product existed) | 11 | 0 |
 | **Total** | 100 | 100 |
 
-> **Read the negative rows with care.** True/false *negatives* reflect **discovery** — whether each system's search surfaced a valid product — not enforcement, and "no valid product exists" was judged from each pipeline's own results rather than an independent label. The two columns therefore aren't a clean apples-to-apples comparison (delta's pipeline also searches differently). The clean enforcement number is the purchase error rate below.
+> **Read the negative rows with care.** True/false *negatives* reflect **discovery** — whether each system's search surfaced a valid product — not enforcement, and "no valid product exists" was judged from each pipeline's own results rather than an independent label. The two columns therefore aren't a clean apples-to-apples comparison (delta's pipeline also searches differently). 5 of delta's 44 negatives were intents that timed out or errored under concurrency stress: no purchase was made (the safe outcome), but the engine returned no verified verdict — and the Shopify control wasn't run under the same concurrency, so that reliability dimension isn't comparable. The clean enforcement number is the purchase error rate below.
 
 ### Error rates
 

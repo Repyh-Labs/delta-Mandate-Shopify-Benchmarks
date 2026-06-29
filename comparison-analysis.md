@@ -74,7 +74,7 @@ The enforcement comparison — the number that matters for delegated spending �
 When an agent says "this product is valid," it's wrong 27.3% of the time. Delta never is.
 
 Notes:
-- Delta TN = 39 correct fails + 5 errors/timeouts = 44
+- Delta TN = 44 = 39 verified correct fails + 5 intents that timed out/errored under concurrency stress (007, 081, 064, 070, 097). The latter 5 made no purchase (a negative outcome, the safe result) but returned no verified verdict, so they are **unverified** true negatives. The Shopify control eval was not run under the same concurrency, so its 0 timeouts is a run-condition difference, not a reliability advantage.
 - Delta FN = 0 (10 engine gaps are "can't verify", not false negatives — the engine didn't reject a valid product, it said it couldn't verify)
 - Shopify TN = 23 (passed when no valid product existed — Delta also couldn't find one)
 - Shopify FN = 11 (passed when Delta's pipeline found and verified a valid product — discovery gap, not enforcement error)
@@ -150,7 +150,7 @@ The agent's 27.3% purchase error rate is exactly the gap delta's policy engine c
 
 ## Methodology Notes
 
-- Delta ran on the deployed stack via native MCP; 97/100 completed (3 timed out under concurrency stress: 064, 070, 097)
+- Delta ran on the deployed stack via native MCP. 95/100 produced a verdict; 5 did not — 3 timed out (064, 070, 097) and 2 errored (007, 081) under concurrency stress. They made no purchase (counted among the negatives) but were not independently verified; the Shopify eval was not run under the same concurrency.
 - Shopify MCP agent selected from Shopify UCP Global Catalog results (same catalog, different selection logic)
 - Re-scoring separates Discovery (which product) from Policy Engine (was the verdict correct)
 - "Engine gap" = the engine said "can't verify" rather than making a wrong call — this is a conservative failure mode, not an error
