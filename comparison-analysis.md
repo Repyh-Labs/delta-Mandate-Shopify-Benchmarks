@@ -57,22 +57,22 @@ Both gaps follow the safe failure mode: the engine says "I can't verify this con
 
 |  | Shopify Agent | Delta |
 |---|---|---|
-| **True positive** | 47 | 56 |
+| **True positive** | 48 | 56 |
 | **True negative** | 23 | 44 |
-| **False positive** | 19 | 0 |
+| **False positive** | 18 | 0 |
 | **False negative** | 11 | 0 |
 | **Total** | 100 | 100 |
 | | | |
-| **Purchase error rate** (FP / (FP+TP)) | **28.8%** (19/66) | **0.0%** (0/56) |
-| **False positive rate** (FP / (FP+TN)) | **45.2%** (19/42) | **0.0%** (0/44) |
+| **Purchase error rate** (FP / (FP+TP)) | **27.3%** (18/66) | **0.0%** (0/56) |
+| **False positive rate** (FP / (FP+TN)) | **43.9%** (18/41) | **0.0%** (0/44) |
 
 **Important caveat on false negatives:** The 11 Shopify false negatives are a **discovery** metric, not an enforcement metric. The agent didn't make a wrong verdict — it couldn't find a product. Delta's pipeline found one, but that's a discovery capability difference, not an enforcement error. Delta has a full discovery pipeline (catalog search + evidence extraction + verification); the Shopify agent only has catalog search. Comparing false negatives across the two systems conflates discovery with enforcement.
 
 The enforcement comparison — the number that matters for delegated spending — is the **purchase error rate**:
-- Shopify: 19 false positives out of 66 claims → **28.8%**
+- Shopify: 18 false positives out of 66 claims → **27.3%**
 - Delta: 0 false positives out of 56 claims → **0.0%**
 
-When an agent says "this product is valid," it's wrong 28.8% of the time. Delta never is.
+When an agent says "this product is valid," it's wrong 27.3% of the time. Delta never is.
 
 Notes:
 - Delta TN = 39 correct fails + 5 errors/timeouts = 44
@@ -104,13 +104,13 @@ These are cases where the Shopify agent gave up (PASS), but Delta found a produc
 
 | System | Claims valid | False positives | Rate |
 |---|---|---|---|
-| **Shopify agent** | 66 FOUND | **19** | **28.8%** |
+| **Shopify agent** | 66 FOUND | **18** | **27.3%** |
 | **Delta** | 56 PASSED | **0** | **0.0%** |
 
-### Shopify false positives (19 total)
+### Shopify false positives (18 total)
 
-**14 cases — feature not in catalog data:** The product page/catalog data doesn't mention the constraint. Agent asserted it was satisfied without evidence.
-IDs: 006, 028, 029, 033, 038, 040, 047, 048, 051, 058, 066, 075, 081, 098
+**13 cases — feature not in catalog data:** The product page/catalog data doesn't mention the constraint. Agent asserted it was satisfied without evidence.
+IDs: 006, 015, 028, 029, 033, 038, 040, 047, 048, 051, 058, 075, 098
 
 **5 cases — agent used intuition instead of evidence:** The agent inferred a property from the product type rather than extracting it from catalog data. The terms exist in the Shopify taxonomy (other products in the same search results have them explicitly), but the specific products the agent selected do not.
 - 041: "slip-on" — Chelsea boots are *by definition* slip-on, but the term is not in the catalog data
@@ -143,11 +143,11 @@ Breakdown of Delta's 23 fails:
 ## Context: Shopify Agent Accuracy (for comparison)
 
 On the same 100 intents, the Shopify MCP agent (without delta's enforcement):
-- Found 66 products, of which 28.8% were wrong (19/66)
-- Error rate by difficulty: Easy 22.2%, Medium 25.0%, Hard 71.4%
+- Found 66 products, of which 27.3% were wrong (18/66)
+- Error rate by difficulty: Easy 14.8%, Medium 34.4%, Hard 42.9%
 - Every failure was a missing feature the agent claimed was satisfied but couldn't verify from catalog data — either the term wasn't present, or the agent used product-type intuition rather than extracting explicit evidence
 
-The agent's 28.8% purchase error rate is exactly the gap delta's policy engine closes. And the engine closes it with 0% false positives and 0% false negatives.
+The agent's 27.3% purchase error rate is exactly the gap delta's policy engine closes. And the engine closes it with 0% false positives and 0% false negatives.
 
 ## Methodology Notes
 
