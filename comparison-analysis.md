@@ -74,7 +74,7 @@ The enforcement comparison — the number that matters for delegated spending �
 When an agent says "this product is valid," it's wrong 27.3% of the time. Delta never is.
 
 Notes:
-- Delta TN = 44 = 39 verified correct fails + 5 intents that timed out/errored under concurrency stress (007, 081, 064, 070, 097). The latter 5 made no purchase (a negative outcome, the safe result) but returned no verified verdict, so they are **unverified** true negatives. The Shopify control eval was not run under the same concurrency, so its 0 timeouts is a run-condition difference, not a reliability advantage.
+- Delta TN = 44 = 39 correct fails + 5 intents that timed out/errored under concurrency stress (007, 081, 064, 070, 097). The latter 5 made no purchase (a negative outcome, the safe result) but returned no verdict, so they are unverified true negatives. The Shopify control eval was not run under the same concurrency, so its 0 timeouts is a run-condition difference, not a reliability advantage.
 - Delta FN = 0 (10 engine gaps are "can't verify", not false negatives — the engine didn't reject a valid product, it said it couldn't verify)
 - Shopify TN = 23 (passed when no valid product existed — Delta also couldn't find one)
 - Shopify FN = 11 (passed when Delta's pipeline found and verified a valid product — discovery gap, not enforcement error)
