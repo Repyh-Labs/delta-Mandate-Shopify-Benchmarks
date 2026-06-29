@@ -4,7 +4,7 @@ Benchmark comparing AI agent purchase accuracy on Shopify with and without delta
 
 ## Headline
 
-When given 100 purchase intents across the Shopify catalog, a Shopify UCP CLI-equipped agent bought the wrong product **27.3% of the time** (42.9% on hard, multi-constraint intents). With delta Mandate's verification layer: **0%**.
+When given 100 purchase intents across the Shopify catalog, a Shopify UCP CLI-equipped agent bought the wrong product **27.3% of the time it bought one** (42.9% on hard, multi-constraint intents). With delta Mandate's verification layer: **0%**.
 
 ## Repository contents
 
