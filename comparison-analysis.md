@@ -64,7 +64,6 @@ Both gaps follow the safe failure mode: the engine says "I can't verify this con
 | **Total** | 100 | 100 |
 | | | |
 | **Purchase error rate** (FP / (FP+TP)) | **27.3%** (18/66) | **0.0%** (0/56) |
-| **False positive rate** (FP / (FP+TN)) | **43.9%** (18/41) | **0.0%** (0/44) |
 
 **Important caveat on false negatives:** The 11 Shopify false negatives are a **discovery** metric, not an enforcement metric. The agent didn't make a wrong verdict — it couldn't find a product. Delta's pipeline found one, but that's a discovery capability difference, not an enforcement error. Delta has a full discovery pipeline (catalog search + evidence extraction + verification); the Shopify agent only has catalog search. Comparing false negatives across the two systems conflates discovery with enforcement.
 

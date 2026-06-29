@@ -35,17 +35,17 @@ When given 100 purchase intents across the Shopify catalog, a Shopify UCP CLI-eq
 | **False negative** (passed when a valid product existed) | 11 | 0 |
 | **Total** | 100 | 100 |
 
+> **Read the negative rows with care.** True/false *negatives* reflect **discovery** — whether each system's search surfaced a valid product — not enforcement, and "no valid product exists" was judged from each pipeline's own results rather than an independent label. The two columns therefore aren't a clean apples-to-apples comparison (delta's pipeline also searches differently). The clean enforcement number is the purchase error rate below.
+
 ### Error rates
 
-Two metrics matter, and the Shopify agent fails on both:
+The metric that matters for delegated spending is the **purchase error rate** — of the products the agent claimed to find, what fraction violated at least one constraint:
 
 | Metric | Formula | Shopify agent | delta Mandate |
 |--------|---------|---------------|---------------|
 | **Purchase error rate** | FP / (TP + FP) | **27.3%** (18/66) | **0.0%** (0/56) |
-| **False positive rate** | FP / (FP + TN) | **43.9%** (18/41) | **0.0%** (0/44) |
 
-- **Purchase error rate** (false discovery rate): of the products the agent claimed to find, what fraction were wrong. This is the metric that matters to the user — 27.3% of the time the agent said "I found it," the purchase violated at least one constraint.
-- **False positive rate**: of the cases where no valid purchase should have been made, what fraction did the agent wrongly make. Statistically rigorous but less intuitive for this use case.
+It assumes nothing about whether a valid product *exists* — it asks only whether what the agent approved was actually valid — so it is a clean, apples-to-apples enforcement comparison. 27.3% of the time the Shopify agent said "I found it," the purchase violated a constraint. With delta Mandate's verification in front of the same agent: **0%**.
 
 On hard intents (5+ constraints), the purchase error rate hit **42.9%**.
 
