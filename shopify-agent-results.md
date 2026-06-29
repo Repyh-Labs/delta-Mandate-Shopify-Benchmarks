@@ -33,13 +33,13 @@ tags: [benchmark, shopify, mcp, delta, agent-shopping]
   - **True negative (TN)** — no valid product exists in the catalog; agent was correct to give up
 - Evaluation corrected using delta's engine as ground truth — 3 cases where my text-based eval was too strict (features in structured data not visible in page text) were corrected to "correct"; 5 cases where my eval used intuition ("by definition slip-on") were corrected to "false positive" after confirming the terms do NOT appear in the product's catalog data
 
-## Key Finding: Every Failure is Missing Evidence, Not Wrong Attribute
+## Key Finding: Nearly Every Failure is Missing Evidence, Not a Wrong Attribute
 
-Every single error is a feature the agent *claimed* was satisfied but the catalog data doesn't confirm. Not wrong color, not wrong size, not wrong price — **missing evidence**.
+Nearly every error (17 of 18) is a feature the agent *claimed* was satisfied but the catalog data doesn't confirm — not wrong color, not wrong size, not wrong price, just **missing evidence**. The one exception (048) is a genuinely wrong value: the joggers are Fleece, not the Cotton requested.
 
-**Two failure patterns:**
+**Three failure patterns:**
 
-1. **Feature not in catalog data** (13 cases): The product page/catalog data simply doesn't mention "dishwasher safe", "non-insulated", "machine washable", "reusable", "USB-C" etc. The agent asserted the constraint was satisfied without evidence.
+1. **Feature not in catalog data** (12 cases): The product page/catalog data simply doesn't mention "dishwasher safe", "non-insulated", "machine washable", "reusable", "USB-C" etc. The agent asserted the constraint was satisfied without evidence.
 
 2. **Agent used intuition instead of evidence** (5 cases): The agent inferred a property from the product type rather than extracting it from catalog data:
    - 041: Claimed "slip-on" because Chelsea boots are *by definition* slip-on — but the term doesn't appear in the catalog data
@@ -49,6 +49,8 @@ Every single error is a feature the agent *claimed* was satisfied but the catalo
    - 081: Claimed "single origin" because Pinhead Gunpowder is a specific tea varietal — but not in the catalog data
 
    All 5 terms **do exist** in the Shopify taxonomy (other products in the same search results have them explicitly). But the specific products the agent selected **do not** have them. The agent used product-type knowledge, not catalog evidence.
+
+3. **Wrong attribute value** (1 case): 048 — the request was Cotton joggers; the selected product is Fleece, a genuinely wrong value (Delta confirmed). This is the lone failure that is a wrong attribute rather than missing evidence.
 
 This is exactly the failure mode delta's enforcement engine is designed to catch: the agent *claims* a constraint is satisfied, but the product evidence doesn't confirm it. A deterministic verification layer requiring taxonomy-grounded evidence for each constraint would block all 18 false positives.
 

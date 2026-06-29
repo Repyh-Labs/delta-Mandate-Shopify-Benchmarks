@@ -51,9 +51,10 @@ On hard intents (5+ constraints), the purchase error rate hit **42.9%**.
 
 ### What the Shopify agent got wrong
 
-Every false positive was a case where the agent asserted a constraint was satisfied without evidence in the catalog data:
-- **13 cases:** the constraint wasn't present anywhere in the product data. The agent claimed it was satisfied anyway.
+Almost every false positive was a case where the agent asserted a constraint was satisfied without evidence in the catalog data:
+- **12 cases:** the constraint wasn't present anywhere in the product data. The agent claimed it was satisfied anyway.
 - **5 cases:** the agent used product-type intuition ("stainless steel is inherently dishwasher safe") rather than extracting explicit evidence from the catalog.
+- **1 case:** the product had a genuinely wrong value (048 — Fleece, not the requested Cotton), not just missing evidence.
 
 ## About delta Mandate
 

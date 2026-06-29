@@ -108,8 +108,8 @@ These are cases where the Shopify agent gave up (PASS), but Delta found a produc
 
 ### Shopify false positives (18 total)
 
-**13 cases — feature not in catalog data:** The product page/catalog data doesn't mention the constraint. Agent asserted it was satisfied without evidence.
-IDs: 006, 015, 028, 029, 033, 038, 040, 047, 048, 051, 058, 075, 098
+**12 cases — feature not in catalog data:** The product page/catalog data doesn't mention the constraint. Agent asserted it was satisfied without evidence.
+IDs: 006, 015, 028, 029, 033, 038, 040, 047, 051, 058, 075, 098
 
 **5 cases — agent used intuition instead of evidence:** The agent inferred a property from the product type rather than extracting it from catalog data. The terms exist in the Shopify taxonomy (other products in the same search results have them explicitly), but the specific products the agent selected do not.
 - 041: "slip-on" — Chelsea boots are *by definition* slip-on, but the term is not in the catalog data
@@ -117,6 +117,8 @@ IDs: 006, 015, 028, 029, 033, 038, 040, 047, 048, 051, 058, 075, 098
 - 052: "dishwasher safe" — stainless steel is *inherently* dishwasher safe, but the term is not in the catalog data
 - 066: "machine washable" — cotton pajamas are *typically* machine washable, but the term is not in the catalog data
 - 081: "single origin" + "unflavored" — Pinhead Gunpowder is a specific tea varietal, but the terms are not in the catalog data
+
+**1 case — wrong value:** 048 — the selected joggers are Fleece, not the requested Cotton: a genuinely wrong attribute, not missing evidence (Delta confirmed).
 
 ### Delta false positives (0)
 
